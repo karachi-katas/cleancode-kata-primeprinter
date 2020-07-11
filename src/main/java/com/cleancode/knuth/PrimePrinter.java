@@ -15,31 +15,31 @@ public class PrimePrinter {
 
         int candidatePrimeNumber = 1;
         int SQUARE = 9;
+        int squareCounter = 2;
+        int squares[] = new int[ORDMAX+1];
+
+
         int counter = 1;
-        int ORD = 2;
-        int MULT[] = new int[ORDMAX+1];
-
-
         while (counter < TOTAL_PRIME_NUMBERS) {
-            boolean JPRIME;
+            boolean isCandidateAPrime;
             do {
                 candidatePrimeNumber += 2;
                 if( candidatePrimeNumber == SQUARE) {
-                    ORD++;
-                    SQUARE=primeNumbers[ORD]*primeNumbers[ORD];
-                    MULT[ORD-1]=candidatePrimeNumber;
+                    squareCounter++;
+                    SQUARE=primeNumbers[squareCounter]*primeNumbers[squareCounter];
+                    squares[squareCounter-1]=candidatePrimeNumber;
                 }
 
+                isCandidateAPrime=true;
                 int N=2;
-                JPRIME=true;
-                while (N < ORD && JPRIME) {
-                    while (MULT[N]<candidatePrimeNumber)
-                        MULT[N] += primeNumbers[N] + primeNumbers[N];
-                    if (MULT[N] == candidatePrimeNumber)
-                        JPRIME=false;
+                while (N < squareCounter && isCandidateAPrime) {
+                    while (squares[N]<candidatePrimeNumber)
+                        squares[N] += primeNumbers[N] + primeNumbers[N];
+                    if (squares[N] == candidatePrimeNumber)
+                        isCandidateAPrime=false;
                     N++;
                 }
-            } while (!JPRIME);
+            } while (!isCandidateAPrime);
             counter++;
             primeNumbers[counter]=candidatePrimeNumber;
         }
