@@ -3,7 +3,6 @@ package com.cleancode.knuth;
 
 
 public class PrimePrinter {
-    static final int PRIME_NUMBERS_PER_PAGE = 1000;
     static final int TOTAL_PRIME_NUMBERS = 1000;
     static final int OUTPUT_ROWS = 50;
     static final int OUTPUT_COLUMNS = 4;
@@ -52,15 +51,15 @@ public class PrimePrinter {
 
         int PAGENUMBER = 1;
         int PAGEOFFSET = 1;
-        while (PAGEOFFSET <= PRIME_NUMBERS_PER_PAGE) {
+        while (PAGEOFFSET <= TOTAL_PRIME_NUMBERS) {
             System.out.print("The First ");
-            System.out.print(PRIME_NUMBERS_PER_PAGE);
+            System.out.print(TOTAL_PRIME_NUMBERS);
             System.out.print(" Prime Numbers === Page ");
             System.out.print(PAGENUMBER);
             System.out.println("\n");
             for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+ OUTPUT_ROWS -1; ROWOFFSET++) {
                 for (int C = 0; C <= OUTPUT_COLUMNS - 1; C++)
-                    if (ROWOFFSET + C * OUTPUT_ROWS <= PRIME_NUMBERS_PER_PAGE)
+                    if (ROWOFFSET + C * OUTPUT_ROWS <= TOTAL_PRIME_NUMBERS)
                         System.out.printf("%10d", p[ROWOFFSET + C * OUTPUT_ROWS]);
                 System.out.println();
             }
