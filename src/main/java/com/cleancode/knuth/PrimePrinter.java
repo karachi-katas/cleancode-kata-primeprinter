@@ -5,8 +5,8 @@ package com.cleancode.knuth;
 public class PrimePrinter {
     static final int PRIME_NUMBERS_PER_PAGE = 1000;
     static final int TOTAL_PRIME_NUMBERS = 1000;
-    static final int RR = 50;
-    static final int CC = 4;
+    static final int OUTPUT_ROWS = 50;
+    static final int OUTPUT_COLUMNS = 4;
     static final int ORDMAX = 30;
 
     public static void main(String[] args) {
@@ -58,15 +58,15 @@ public class PrimePrinter {
             System.out.print(" Prime Numbers === Page ");
             System.out.print(PAGENUMBER);
             System.out.println("\n");
-            for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+RR-1; ROWOFFSET++) {
-                for (int C = 0; C <= CC - 1; C++)
-                    if (ROWOFFSET + C * RR <= PRIME_NUMBERS_PER_PAGE)
-                        System.out.printf("%10d", p[ROWOFFSET + C * RR]);
+            for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+ OUTPUT_ROWS -1; ROWOFFSET++) {
+                for (int C = 0; C <= OUTPUT_COLUMNS - 1; C++)
+                    if (ROWOFFSET + C * OUTPUT_ROWS <= PRIME_NUMBERS_PER_PAGE)
+                        System.out.printf("%10d", p[ROWOFFSET + C * OUTPUT_ROWS]);
                 System.out.println();
             }
             System.out.println("\f");
             PAGENUMBER++;
-            PAGEOFFSET += RR*CC;
+            PAGEOFFSET += OUTPUT_ROWS * OUTPUT_COLUMNS;
 
         }
     }
