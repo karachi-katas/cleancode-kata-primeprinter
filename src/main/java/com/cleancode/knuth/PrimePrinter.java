@@ -2,62 +2,63 @@ package com.cleancode.knuth;
 
 public class PrimePrinter {
     public static void main(String[] args) {
-		final int M = 1000;
+		final int totalNumberOfPrimesToBePrinted = 1000;
         final int RR = 50;
         final int CC = 4;
         final int ORDMAX = 30;
-        int P[] = new int[M+1];
+        int primes[] = new int[totalNumberOfPrimesToBePrinted+1];
         int PAGENUMBER;
         int PAGEOFFSET;
         int ROWOFFSET;
         int C;
-        int J;
-        int K;
+        int currentNumberToCheck;
+        int currentPrimeCount;
         boolean JPRIME;
         int ORD;
         int SQUARE;
         int N=0;
         int MULT[] = new int[ORDMAX+1];
 
-        J=1;
-        K=1;
-        P[1] = 2;
+        currentNumberToCheck=1;
+        currentPrimeCount=1;
+        primes[1] = 2;
         ORD = 2;
         SQUARE = 9;
 
-        while (K < M) {
+        while (currentPrimeCount < totalNumberOfPrimesToBePrinted) {
             do {
-                J += 2;
-                if( J == SQUARE) {
+                currentNumberToCheck += 2;
+                if( currentNumberToCheck == SQUARE) {
                     ORD++;
-                    SQUARE=P[ORD]*P[ORD];
-                    MULT[ORD-1]=J;
+                    SQUARE=primes[ORD]*primes[ORD];
+                    MULT[ORD-1]=currentNumberToCheck;
                 }
                 N=2;
                 JPRIME=true;
                 while (N < ORD && JPRIME) {
-                    while (MULT[N]<J)
-                        MULT[N] += P[N] + P[N];
-                    if (MULT[N] == J)
+                    while (MULT[N]<currentNumberToCheck)
+                        MULT[N] += primes[N] + primes[N];
+                    if (MULT[N] == currentNumberToCheck)
                         JPRIME=false;
                     N++;
                 }
-            } while (!JPRIME);
-            K++;
-            P[K]=J;
+            }
+            while (!JPRIME);
+            currentPrimeCount++;
+            primes[currentPrimeCount]=currentNumberToCheck;
         }
         PAGENUMBER = 1;
         PAGEOFFSET = 1;
-        while (PAGEOFFSET <= M) {
+        while (PAGEOFFSET <= totalNumberOfPrimesToBePrinted) {
             System.out.print("The First ");
-            System.out.print(Integer.toString(M));
+            System.out.print(Integer.toString(totalNumberOfPrimesToBePrinted));
             System.out.print(" Prime Numbers === Page ");
             System.out.print(Integer.toString(PAGENUMBER));
             System.out.println("\n");
             for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+RR-1; ROWOFFSET++) {
                 for (C = 0; C <= CC - 1; C++)
-                    if (ROWOFFSET + C * RR <= M)
-                        System.out.printf("%10d", P[ROWOFFSET + C * RR]);
+                    if (ROWOFFSET + C * RR <= totalNumberOfPrimesToBePrinted)
+                        System.out.printf("%10d", primes[ROWOFFSET + C * RR]);
                 System.out.println();
             }
             System.out.println("\f");
