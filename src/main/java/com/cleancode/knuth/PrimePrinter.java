@@ -12,41 +12,41 @@ public class PrimePrinter {
         int pageOffset;
         int rowoffset;
         int c;
-        int numberToBeChecked;
+        int oddNumberToBeChecked;
         int nthPrimeNumber;
 //        boolean jprime;
         int ord;
-        int square;
+        int nextOddNumberSquare;
         int n = 0;
         int mult[] = new int[ORDMAX+1];
 
-        numberToBeChecked = 1;
+        oddNumberToBeChecked = 1;
         nthPrimeNumber=1;
         primeNumbers[1] = 2;
         ord = 2;
-        square = 9;
+        nextOddNumberSquare = 9;
 
         while (nthPrimeNumber < FIRST_PRIME_NUMBERS_TO_PRINT) {
             boolean isNumberPrime;
             do {
-                numberToBeChecked += 2;
-                if( numberToBeChecked == square) {
+                oddNumberToBeChecked = getNextOddNumber(oddNumberToBeChecked);
+                if( oddNumberToBeChecked == nextOddNumberSquare) {
                     ord++;
-                    square=primeNumbers[ord]*primeNumbers[ord];
-                    mult[ord-1]=numberToBeChecked;
+                    nextOddNumberSquare = primeNumbers[ord]*primeNumbers[ord];
+                    mult[ord-1]=oddNumberToBeChecked;
                 }
                 n=2;
                 isNumberPrime=true;
                 while (n < ord && isNumberPrime) {
-                    while (mult[n]<numberToBeChecked)
+                    while (mult[n]<oddNumberToBeChecked)
                         mult[n] += primeNumbers[n] + primeNumbers[n];
-                    if (mult[n] == numberToBeChecked)
+                    if (mult[n] == oddNumberToBeChecked)
                         isNumberPrime=false;
                     n++;
                 }
             } while (!isNumberPrime);
             nthPrimeNumber++;
-            primeNumbers[nthPrimeNumber]=numberToBeChecked;
+            primeNumbers[nthPrimeNumber]=oddNumberToBeChecked;
         }
         pageNumber = 1;
         pageOffset = 1;
@@ -68,4 +68,8 @@ public class PrimePrinter {
 
         }
 	}
+
+    private static int getNextOddNumber(int oddNumberToBeChecked) {
+        return  oddNumberToBeChecked + 2;
+    }
 }
