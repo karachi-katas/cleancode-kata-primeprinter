@@ -10,8 +10,8 @@ public class PrimePrinter {
 
     public static void main(String[] args) {
 
-        int P[] = new int[TOTAL_PRIME_NUMBERS +1];
-        P[1] = 2;
+        int primeNumbers[] = new int[TOTAL_PRIME_NUMBERS +1];
+        primeNumbers[1] = 2;
 
         int J = 1;
         int K = 1;
@@ -27,23 +27,23 @@ public class PrimePrinter {
                 J += 2;
                 if( J == SQUARE) {
                     ORD++;
-                    SQUARE=P[ORD]*P[ORD];
+                    SQUARE=primeNumbers[ORD]*primeNumbers[ORD];
                     MULT[ORD-1]=J;
                 }
                 N=2;
                 JPRIME=true;
                 while (N < ORD && JPRIME) {
                     while (MULT[N]<J)
-                        MULT[N] += P[N] + P[N];
+                        MULT[N] += primeNumbers[N] + primeNumbers[N];
                     if (MULT[N] == J)
                         JPRIME=false;
                     N++;
                 }
             } while (!JPRIME);
             K++;
-            P[K]=J;
+            primeNumbers[K]=J;
         }
-        print(P);
+        print(primeNumbers);
     }
 
     private static void print(int[] p) {
