@@ -7,10 +7,7 @@ public class PrimePrinter {
         final int CC = 4;
         final int ORDMAX = 30;
         int P[] = new int[primeCountLimit+1];
-        int J;
-        int K;
-        int ORD;
-        int SQUARE;
+
         int MULT[] = new int[ORDMAX+1];
 
         loop1(primeCountLimit, P, MULT);
@@ -42,35 +39,35 @@ public class PrimePrinter {
         }
     }
 
-    private static void loop1(int m, int[] p, int[] MULT) {
+    private static void loop1(int primeCountLimit, int[] primes, int[] MULT) {
         int N;
         boolean JPRIME;
         int j=1;
-        int k=1;
-        p[1] = 2;
+        primes[1] = 2;
         int ORD = 2;
         int SQUARE = 9;
 
-        while (k < m) {
+        for (int currentPrimeCount = 1; currentPrimeCount < primeCountLimit; currentPrimeCount++, primes[currentPrimeCount] = j) {
+
             do {
                 j += 2;
                 if( j == SQUARE) {
                     ORD++;
-                    SQUARE= p[ORD]* p[ORD];
+                    SQUARE= primes[ORD]* primes[ORD];
                     MULT[ORD-1]= j;
                 }
+
                 N=2;
                 JPRIME=true;
                 while (N < ORD && JPRIME) {
                     while (MULT[N]< j)
-                        MULT[N] += p[N] + p[N];
+                        MULT[N] += primes[N] + primes[N];
                     if (MULT[N] == j)
                         JPRIME=false;
                     N++;
                 }
             } while (!JPRIME);
-            k++;
-            p[k]= j;
+
         }
     }
 }
