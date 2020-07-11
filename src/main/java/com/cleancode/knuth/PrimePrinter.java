@@ -3,14 +3,14 @@ package com.cleancode.knuth;
 
 
 public class PrimePrinter {
-    static final int M = 1000;
+    static final int PRIME_NUMEBRS_PER_PAGE = 1000;
     static final int RR = 50;
     static final int CC = 4;
     static final int ORDMAX = 30;
 
     public static void main(String[] args) {
 
-        int P[] = new int[M+1];
+        int P[] = new int[PRIME_NUMEBRS_PER_PAGE +1];
         int J;
         int K;
         boolean JPRIME;
@@ -25,7 +25,7 @@ public class PrimePrinter {
         ORD = 2;
         SQUARE = 9;
 
-        while (K < M) {
+        while (K < PRIME_NUMEBRS_PER_PAGE) {
             do {
                 J += 2;
                 if( J == SQUARE) {
@@ -50,21 +50,19 @@ public class PrimePrinter {
     }
 
     private static void print(int[] p) {
-        int PAGENUMBER;
-        int PAGEOFFSET;
         int ROWOFFSET;
-        int C;
-        PAGENUMBER = 1;
-        PAGEOFFSET = 1;
-        while (PAGEOFFSET <= M) {
+
+        int PAGENUMBER = 1;
+        int PAGEOFFSET = 1;
+        while (PAGEOFFSET <= PRIME_NUMEBRS_PER_PAGE) {
             System.out.print("The First ");
-            System.out.print(Integer.toString(M));
+            System.out.print(PRIME_NUMEBRS_PER_PAGE);
             System.out.print(" Prime Numbers === Page ");
-            System.out.print(Integer.toString(PAGENUMBER));
+            System.out.print(PAGENUMBER);
             System.out.println("\n");
             for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+RR-1; ROWOFFSET++) {
-                for (C = 0; C <= CC - 1; C++)
-                    if (ROWOFFSET + C * RR <= M)
+                for (int C = 0; C <= CC - 1; C++)
+                    if (ROWOFFSET + C * RR <= PRIME_NUMEBRS_PER_PAGE)
                         System.out.printf("%10d", p[ROWOFFSET + C * RR]);
                 System.out.println();
             }
