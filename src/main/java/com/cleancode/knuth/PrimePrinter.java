@@ -13,35 +13,35 @@ public class PrimePrinter {
         int primeNumbers[] = new int[TOTAL_PRIME_NUMBERS +1];
         primeNumbers[1] = 2;
 
-        int J = 1;
-        int counter = 1;
-        boolean JPRIME;
-        int ORD = 2;
+        int candidatePrimeNumber = 1;
         int SQUARE = 9;
-        int N=0;
+        int counter = 1;
+        int ORD = 2;
         int MULT[] = new int[ORDMAX+1];
 
 
         while (counter < TOTAL_PRIME_NUMBERS) {
+            boolean JPRIME;
             do {
-                J += 2;
-                if( J == SQUARE) {
+                candidatePrimeNumber += 2;
+                if( candidatePrimeNumber == SQUARE) {
                     ORD++;
                     SQUARE=primeNumbers[ORD]*primeNumbers[ORD];
-                    MULT[ORD-1]=J;
+                    MULT[ORD-1]=candidatePrimeNumber;
                 }
-                N=2;
+
+                int N=2;
                 JPRIME=true;
                 while (N < ORD && JPRIME) {
-                    while (MULT[N]<J)
+                    while (MULT[N]<candidatePrimeNumber)
                         MULT[N] += primeNumbers[N] + primeNumbers[N];
-                    if (MULT[N] == J)
+                    if (MULT[N] == candidatePrimeNumber)
                         JPRIME=false;
                     N++;
                 }
             } while (!JPRIME);
             counter++;
-            primeNumbers[counter]=J;
+            primeNumbers[counter]=candidatePrimeNumber;
         }
         print(primeNumbers);
     }
