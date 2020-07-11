@@ -8,7 +8,6 @@ public class PrimePrinter {
     public static void main(String[] args) {
 
         PrimePrinter primePrinter = new PrimePrinter();
-
         primePrinter.calculatePrimes();
         primePrinter.printPrimes();
 
@@ -16,42 +15,34 @@ public class PrimePrinter {
 
     private void calculatePrimes() {
 
-        int currentNumberToCheck;
-        int currentPrimeCount;
-
-        int ORD;
-        int SQUARE;
-        int N;
-
         final int ORDMAX = 30;
-        int multiples[] = new int[ORDMAX+1];
-
-        currentNumberToCheck=1;
-        currentPrimeCount=1;
-
-        ORD = 2;
-        SQUARE = 9;
+        int multiplesOfOddNumbers[] = new int[ORDMAX+1];
 
         primes[1] = 2;
+
+        int currentPrimeCount = 1;
+        int currentNumberToCheck = 1;
+        int currentSquare = 9;
+        int lastPerfectOddNumberSquareIndex = 2;
 
         while (currentPrimeCount < this.totalNumberOfPrimesToBePrinted) {
             boolean isCurrentNumberPrime;
 
             do {
                 currentNumberToCheck += 2;
-                if( currentNumberToCheck == SQUARE) {
-                    ORD++;
-                    SQUARE=primes[ORD]*primes[ORD];
-                    multiples[ORD-1]=currentNumberToCheck;
+                if( currentNumberToCheck == currentSquare) {
+                    lastPerfectOddNumberSquareIndex++;
+                    currentSquare=primes[lastPerfectOddNumberSquareIndex]*primes[lastPerfectOddNumberSquareIndex];
+                    multiplesOfOddNumbers[lastPerfectOddNumberSquareIndex-1]=currentNumberToCheck;
                 }
-                N=2;
+                int currentIndex = 2;
                 isCurrentNumberPrime=true;
-                while (N < ORD && isCurrentNumberPrime) {
-                    while (multiples[N]<currentNumberToCheck)
-                        multiples[N] += primes[N] + primes[N];
-                    if (multiples[N] == currentNumberToCheck)
+                while (currentIndex < lastPerfectOddNumberSquareIndex && isCurrentNumberPrime) {
+                    while (multiplesOfOddNumbers[currentIndex]<currentNumberToCheck)
+                        multiplesOfOddNumbers[currentIndex] += primes[currentIndex] + primes[currentIndex];
+                    if (multiplesOfOddNumbers[currentIndex] == currentNumberToCheck)
                         isCurrentNumberPrime=false;
-                    N++;
+                    currentIndex++;
                 }
             } while (!isCurrentNumberPrime);
             currentPrimeCount++;
@@ -60,31 +51,26 @@ public class PrimePrinter {
     }
 
     private void printPrimes() {
-        int PAGENUMBER;
-        int PAGEOFFSET;
-        int ROWOFFSET;
+        int currentPageNumber = 1;
+        int currentPageOffset = 1;
+        int currentRowOffset;
 
-        final int RR = 50;
-        final int CC = 4;
+        final int totalRowsPerPage = 50;
+        final int totalColumnsPerPage = 4;
 
         int C;
-        PAGENUMBER = 1;
-        PAGEOFFSET = 1;
-        while (PAGEOFFSET <= this.totalNumberOfPrimesToBePrinted) {
-            System.out.print("The First ");
-            System.out.print(Integer.toString(this.totalNumberOfPrimesToBePrinted));
-            System.out.print(" Prime Numbers === Page ");
-            System.out.print(Integer.toString(PAGENUMBER));
-            System.out.println("\n");
-            for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+RR-1; ROWOFFSET++) {
-                for (C = 0; C <= CC - 1; C++)
-                    if (ROWOFFSET + C * RR <= this.totalNumberOfPrimesToBePrinted)
-                        System.out.printf("%10d", primes[ROWOFFSET + C * RR]);
+        while (currentPageOffset <= this.totalNumberOfPrimesToBePrinted) {
+            System.out.println(String.format("The First %d Prime Numbers === Page %d\n", this.totalNumberOfPrimesToBePrinted, currentPageNumber));
+            
+            for (currentRowOffset=currentPageOffset; currentRowOffset <= currentPageOffset+totalRowsPerPage-1; currentRowOffset++) {
+                for (C = 0; C <= totalColumnsPerPage - 1; C++)
+                    if (currentRowOffset + C * totalRowsPerPage <= this.totalNumberOfPrimesToBePrinted)
+                        System.out.printf("%10d", primes[currentRowOffset + C * totalRowsPerPage]);
                 System.out.println();
             }
             System.out.println("\f");
-            PAGENUMBER++;
-            PAGEOFFSET += RR*CC;
+            currentPageNumber++;
+            currentPageOffset += totalRowsPerPage*totalColumnsPerPage;
 
         }
     }
