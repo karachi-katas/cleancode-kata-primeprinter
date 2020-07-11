@@ -12,15 +12,15 @@ public class PrimePrinter {
         int pageOffset;
         int rowoffset;
         int c;
-        int oddNumberToBeChecked;
+        int oddNumber;
         int nthPrimeNumber;
 //        boolean jprime;
         int ord;
         int nextOddNumberSquare;
         int n = 0;
-        int mult[] = new int[ORDMAX+1];
+        int nonPrimeOddNumbers[] = new int[ORDMAX+1];
 
-        oddNumberToBeChecked = 1;
+        oddNumber = 1;
         nthPrimeNumber=1;
         primeNumbers[1] = 2;
         ord = 2;
@@ -29,24 +29,24 @@ public class PrimePrinter {
         while (nthPrimeNumber < FIRST_PRIME_NUMBERS_TO_PRINT) {
             boolean isNumberPrime;
             do {
-                oddNumberToBeChecked = getNextOddNumber(oddNumberToBeChecked);
-                if( oddNumberToBeChecked == nextOddNumberSquare) {
+                oddNumber = getNextOddNumber(oddNumber);
+                if( oddNumber == nextOddNumberSquare) {
                     ord++;
                     nextOddNumberSquare = primeNumbers[ord]*primeNumbers[ord];
-                    mult[ord-1]=oddNumberToBeChecked;
+                    nonPrimeOddNumbers[ord-1]=oddNumber;
                 }
                 n=2;
                 isNumberPrime=true;
                 while (n < ord && isNumberPrime) {
-                    while (mult[n]<oddNumberToBeChecked)
-                        mult[n] += primeNumbers[n] + primeNumbers[n];
-                    if (mult[n] == oddNumberToBeChecked)
+                    while (nonPrimeOddNumbers[n]<oddNumber)
+                        nonPrimeOddNumbers[n] += primeNumbers[n] + primeNumbers[n];
+                    if (nonPrimeOddNumbers[n] == oddNumber)
                         isNumberPrime=false;
                     n++;
                 }
             } while (!isNumberPrime);
             nthPrimeNumber++;
-            primeNumbers[nthPrimeNumber]=oddNumberToBeChecked;
+            primeNumbers[nthPrimeNumber]=oddNumber;
         }
         pageNumber = 1;
         pageOffset = 1;
