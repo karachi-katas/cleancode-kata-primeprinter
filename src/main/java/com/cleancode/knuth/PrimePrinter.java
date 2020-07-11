@@ -51,14 +51,22 @@ public class PrimePrinter {
         int pageOffset = 1;
         while (pageOffset <= TOTAL_PRIME_NUMBERS) {
             printHeader(pageNumber);
-            for (int row=pageOffset; row <= pageOffset+ OUTPUT_ROWS -1; row++) {
-                printRow(primeNumbers, row);
-                System.out.println();
-            }
-            System.out.println("\f");
+            printRows(primeNumbers, pageOffset);
+            printLineBreak();
             pageNumber++;
             pageOffset += OUTPUT_ROWS * OUTPUT_COLUMNS;
 
+        }
+    }
+
+    private static void printLineBreak() {
+        System.out.println("\f");
+    }
+
+    private static void printRows(int[] primeNumbers, int pageOffset) {
+        for (int row=pageOffset; row <= pageOffset+ OUTPUT_ROWS -1; row++) {
+            printRow(primeNumbers, row);
+            System.out.println();
         }
     }
 
