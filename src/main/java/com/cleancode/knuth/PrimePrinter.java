@@ -2,68 +2,65 @@ package com.cleancode.knuth;
 
 public class PrimePrinter {
     public static void main(String[] args) {
-		final int maxSizeOfPrimes = 1000;
+        final int maxSizeOfPrimes = 1000;
         final int RR = 50;
         final int CC = 4;
-        final int ORDMAX = 30;
-        int primeNumbers[] = new int[maxSizeOfPrimes+1];
-        int PAGENUMBER;
-        int PAGEOFFSET;
-        int ROWOFFSET;
+        final int totalBoundPosition = 30;
+        int primeNumbers[] = new int[maxSizeOfPrimes + 1];
+        int pageNumber;
+        int pageOffset;
+        int rowOffset;
         int C;
-        int currentNumber;
+        int primeNumber;
         int primeIndex;
         boolean isPrime;
-        int ORD;
-        int SQUARE;
-        int N=0;
-        int MULT[] = new int[ORDMAX+1];
+        int multIndex;
+        int square;
+        int nextPrimeNumberBound[] = new int[totalBoundPosition + 1];
 
-        currentNumber=1;
-        primeIndex=1;
+        primeNumber = 1;
+        primeIndex = 1;
         primeNumbers[1] = 2;
-        ORD = 2;
-        SQUARE = 9;
-
+        multIndex = 2;
+        square = 9;
         while (primeIndex < maxSizeOfPrimes) {
             do {
-                currentNumber += 2;
-                if( currentNumber == SQUARE) {
-                    ORD++;
-                    SQUARE=primeNumbers[ORD]*primeNumbers[ORD];
-                    MULT[ORD-1]=currentNumber;
+                primeNumber += 2;
+                if (primeNumber == square) {
+                    multIndex++;
+                    square = primeNumbers[multIndex] * primeNumbers[multIndex];
+                    nextPrimeNumberBound[multIndex - 1] = primeNumber;
                 }
-                N=2;
-                isPrime=true;
-                while (N < ORD && isPrime) {
-                    while (MULT[N] < currentNumber)
-                        MULT[N] += primeNumbers[N] + primeNumbers[N];
-                    if (MULT[N] == currentNumber)
+                isPrime = true;
+                for (int i = 2; i < multIndex && isPrime; i++) {
+                    while (nextPrimeNumberBound[i] < primeNumber)
+                        nextPrimeNumberBound[i] += primeNumbers[i] + primeNumbers[i];
+                    if (nextPrimeNumberBound[i] == primeNumber)
                         isPrime = false;
-                    N++;
                 }
+
             } while (!isPrime);
             primeIndex++;
-            primeNumbers[primeIndex]=currentNumber;
+            primeNumbers[primeIndex] = primeNumber;
         }
-        PAGENUMBER = 1;
-        PAGEOFFSET = 1;
-        while (PAGEOFFSET <= maxSizeOfPrimes) {
+        pageNumber = 1;
+        pageOffset = 1;
+        while (pageOffset <= maxSizeOfPrimes) {
             System.out.print("The First ");
             System.out.print(Integer.toString(maxSizeOfPrimes));
             System.out.print(" Prime Numbers === Page ");
-            System.out.print(Integer.toString(PAGENUMBER));
+            System.out.print(Integer.toString(pageNumber));
             System.out.println("\n");
-            for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+RR-1; ROWOFFSET++) {
+            for (rowOffset = pageOffset; rowOffset <= pageOffset + RR - 1; rowOffset++) {
                 for (C = 0; C <= CC - 1; C++)
-                    if (ROWOFFSET + C * RR <= maxSizeOfPrimes)
-                        System.out.printf("%10d", primeNumbers[ROWOFFSET + C * RR]);
+                    if (rowOffset + C * RR <= maxSizeOfPrimes)
+                        System.out.printf("%10d", primeNumbers[rowOffset + C * RR]);
                 System.out.println();
             }
             System.out.println("\f");
-            PAGENUMBER++;
-            PAGEOFFSET += RR*CC;
+            pageNumber++;
+            pageOffset += RR * CC;
 
         }
-	}
+    }
 }
