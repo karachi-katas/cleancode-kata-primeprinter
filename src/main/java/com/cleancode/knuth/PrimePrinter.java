@@ -1,11 +1,12 @@
 package com.cleancode.knuth;
 
+
 public class PrimePrinter {
     public static void main(String[] args) {
 		final int primeCountLimit = 1000;
         final int RR = 50;
         final int CC = 4;
-        final int ORDMAX = 30;
+        final int ORDMAX = 40;
         int P[] = new int[primeCountLimit+1];
 
         int MULT[] = new int[ORDMAX+1];
@@ -39,35 +40,38 @@ public class PrimePrinter {
         }
     }
 
-    private static void loop1(int primeCountLimit, int[] primes, int[] MULT) {
+    private static void loop1(int primeCountLimit, int[] primes, int[] MultiplesOfANumber) {
         int N;
         boolean JPRIME;
-        int j=1;
+        int numberCurrentlyBeingEvaluated=1;
         primes[1] = 2;
         int ORD = 2;
         int SQUARE = 9;
 
-        for (int currentPrimeCount = 1; currentPrimeCount < primeCountLimit; currentPrimeCount++, primes[currentPrimeCount] = j) {
+        for (int primeIndex = 1; primeIndex < primeCountLimit; primeIndex++, primes[primeIndex] = numberCurrentlyBeingEvaluated) {
 
             do {
-                j += 2;
-                if( j == SQUARE) {
+                numberCurrentlyBeingEvaluated += 2;
+                if( numberCurrentlyBeingEvaluated == SQUARE) {
                     ORD++;
                     SQUARE= primes[ORD]* primes[ORD];
-                    MULT[ORD-1]= j;
+                    MultiplesOfANumber[ORD-1]= numberCurrentlyBeingEvaluated;
+
                 }
 
                 N=2;
                 JPRIME=true;
                 while (N < ORD && JPRIME) {
-                    while (MULT[N]< j)
-                        MULT[N] += primes[N] + primes[N];
-                    if (MULT[N] == j)
+                    while (MultiplesOfANumber[N] < numberCurrentlyBeingEvaluated) {
+                        MultiplesOfANumber[N] += primes[N] + primes[N];
+                    }
+                    if (MultiplesOfANumber[N] == numberCurrentlyBeingEvaluated)
                         JPRIME=false;
                     N++;
                 }
             } while (!JPRIME);
 
         }
+
     }
 }
