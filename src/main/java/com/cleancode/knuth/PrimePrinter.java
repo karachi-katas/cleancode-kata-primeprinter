@@ -14,7 +14,7 @@ public class PrimePrinter {
         primeNumbers[1] = 2;
 
         int J = 1;
-        int K = 1;
+        int counter = 1;
         boolean JPRIME;
         int ORD = 2;
         int SQUARE = 9;
@@ -22,7 +22,7 @@ public class PrimePrinter {
         int MULT[] = new int[ORDMAX+1];
 
 
-        while (K < TOTAL_PRIME_NUMBERS) {
+        while (counter < TOTAL_PRIME_NUMBERS) {
             do {
                 J += 2;
                 if( J == SQUARE) {
@@ -40,8 +40,8 @@ public class PrimePrinter {
                     N++;
                 }
             } while (!JPRIME);
-            K++;
-            primeNumbers[K]=J;
+            counter++;
+            primeNumbers[counter]=J;
         }
         print(primeNumbers);
     }
