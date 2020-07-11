@@ -46,26 +46,24 @@ public class PrimePrinter {
         print(primeNumbers);
     }
 
-    private static void print(int[] p) {
-        int ROWOFFSET;
-
-        int PAGENUMBER = 1;
-        int PAGEOFFSET = 1;
-        while (PAGEOFFSET <= TOTAL_PRIME_NUMBERS) {
+    private static void print(int[] primeNumbers) {
+        int pageNumber = 1;
+        int pageOffset = 1;
+        while (pageOffset <= TOTAL_PRIME_NUMBERS) {
             System.out.print("The First ");
             System.out.print(TOTAL_PRIME_NUMBERS);
             System.out.print(" Prime Numbers === Page ");
-            System.out.print(PAGENUMBER);
+            System.out.print(pageNumber);
             System.out.println("\n");
-            for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+ OUTPUT_ROWS -1; ROWOFFSET++) {
-                for (int C = 0; C <= OUTPUT_COLUMNS - 1; C++)
-                    if (ROWOFFSET + C * OUTPUT_ROWS <= TOTAL_PRIME_NUMBERS)
-                        System.out.printf("%10d", p[ROWOFFSET + C * OUTPUT_ROWS]);
+            for (int row=pageOffset; row <= pageOffset+ OUTPUT_ROWS -1; row++) {
+                for (int column = 0; column <= OUTPUT_COLUMNS - 1; column++)
+                    if (row + column * OUTPUT_ROWS <= TOTAL_PRIME_NUMBERS)
+                        System.out.printf("%10d", primeNumbers[row + column * OUTPUT_ROWS]);
                 System.out.println();
             }
             System.out.println("\f");
-            PAGENUMBER++;
-            PAGEOFFSET += OUTPUT_ROWS * OUTPUT_COLUMNS;
+            pageNumber++;
+            pageOffset += OUTPUT_ROWS * OUTPUT_COLUMNS;
 
         }
     }
