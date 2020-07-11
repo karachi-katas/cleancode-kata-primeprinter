@@ -7,6 +7,7 @@ public class PrimePrinter {
         final int ROWS_PER_PAGE = 50;
         final int COLUMNS_PER_PAGE = 4;
         final int ORDMAX = 30;
+
         int primeNumbers [] = new int[FIRST_PRIME_NUMBERS_TO_PRINT+1];
         int c;
         int oddNumber;
@@ -45,19 +46,29 @@ public class PrimePrinter {
             nthPrimeNumber++;
             primeNumbers[nthPrimeNumber]=oddNumber;
         }
-        for (int pageNumber = 1, pageOffset = 1;
-             pageOffset <= FIRST_PRIME_NUMBERS_TO_PRINT;
-             pageNumber++, pageOffset += ROWS_PER_PAGE*COLUMNS_PER_PAGE){
-            printHeaderOfAPage(FIRST_PRIME_NUMBERS_TO_PRINT, pageNumber);
-            for (int rowoffset= pageOffset; rowoffset <= pageOffset +ROWS_PER_PAGE-1; rowoffset++) {
-                for (c = 0; c <= COLUMNS_PER_PAGE - 1; c++)
-                    if (rowoffset + c * ROWS_PER_PAGE <= FIRST_PRIME_NUMBERS_TO_PRINT)
-                        System.out.printf("%10d", primeNumbers[rowoffset + c * ROWS_PER_PAGE]);
+        printify(FIRST_PRIME_NUMBERS_TO_PRINT, ROWS_PER_PAGE, COLUMNS_PER_PAGE, primeNumbers, "Prime Numbers");
+    }
+
+    private static void printify(int maxNumbers, int rowsPerPage, int columnsPerPage, int[] numbers, String numbersDescription) {
+
+
+        for (int pageNumber = 1, index = 1; index <= maxNumbers;){
+
+            printHeaderOfAPage(maxNumbers, pageNumber);
+            for (int rowoffset= index; rowoffset <= index +rowsPerPage-1; rowoffset++) {
+
+                for (int c = 0; c <= columnsPerPage - 1; c++)
+                    if (rowoffset + c * rowsPerPage <= maxNumbers)
+                        System.out.printf("%10d", numbers[rowoffset + c * rowsPerPage]);
+
                 System.out.println();
             }
             System.out.println("\f");
+            pageNumber++;
+            index += rowsPerPage*columnsPerPage;
+
         }
-	}
+    }
 
     private static void printHeaderOfAPage(int FIRST_PRIME_NUMBERS_TO_PRINT, int pageNumber) {
         System.out.print("The First ");
