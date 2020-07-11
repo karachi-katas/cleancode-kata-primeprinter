@@ -1,68 +1,69 @@
 package com.cleancode.knuth;
 
 public class PrimePrinter {
+    
     public static void main(String[] args) {
 		final int M = 1000;
         final int RR = 50;
         final int CC = 4;
         final int ORDMAX = 30;
-        int P[] = new int[M+1];
-        int PAGENUMBER;
-        int PAGEOFFSET;
-        int ROWOFFSET;
-        int C;
-        int J;
-        int K;
-        boolean JPRIME;
-        int ORD;
-        int SQUARE;
-        int N=0;
-        int MULT[] = new int[ORDMAX+1];
+        int p [] = new int[M+1];
+        int pageNumber;
+        int pageOffset;
+        int rowoffset;
+        int c;
+        int j;
+        int k;
+        boolean jprime;
+        int ord;
+        int square;
+        int n = 0;
+        int mult[] = new int[ORDMAX+1];
 
-        J=1;
-        K=1;
-        P[1] = 2;
-        ORD = 2;
-        SQUARE = 9;
+        j=1;
+        k=1;
+        p[1] = 2;
+        ord = 2;
+        square = 9;
 
-        while (K < M) {
+        while (k < M) {
             do {
-                J += 2;
-                if( J == SQUARE) {
-                    ORD++;
-                    SQUARE=P[ORD]*P[ORD];
-                    MULT[ORD-1]=J;
+                j += 2;
+                if( j == square) {
+                    ord++;
+                    square=p[ord]*p[ord];
+                    mult[ord-1]=j;
                 }
-                N=2;
-                JPRIME=true;
-                while (N < ORD && JPRIME) {
-                    while (MULT[N]<J)
-                        MULT[N] += P[N] + P[N];
-                    if (MULT[N] == J)
-                        JPRIME=false;
-                    N++;
+                n=2;
+                jprime=true;
+                while (n < ord && jprime) {
+                    while (mult[n]<j)
+                        mult[n] += p[n] + p[n];
+                    if (mult[n] == j)
+                        jprime=false;
+                    n++;
                 }
-            } while (!JPRIME);
-            K++;
-            P[K]=J;
+            } while (!jprime);
+            k++;
+            p[k]=j;
         }
-        PAGENUMBER = 1;
-        PAGEOFFSET = 1;
-        while (PAGEOFFSET <= M) {
+        pageNumber = 1;
+        pageOffset = 1;
+        while (pageOffset <= M) {
             System.out.print("The First ");
             System.out.print(Integer.toString(M));
             System.out.print(" Prime Numbers === Page ");
-            System.out.print(Integer.toString(PAGENUMBER));
+            System.out.print(Integer.toString(pageNumber));
             System.out.println("\n");
-            for (ROWOFFSET=PAGEOFFSET; ROWOFFSET <= PAGEOFFSET+RR-1; ROWOFFSET++) {
-                for (C = 0; C <= CC - 1; C++)
-                    if (ROWOFFSET + C * RR <= M)
-                        System.out.printf("%10d", P[ROWOFFSET + C * RR]);
+            for (rowoffset= pageOffset; rowoffset <= pageOffset +RR-1; rowoffset++) {
+                for (c = 0; c <= CC - 1; c++)
+                    if (rowoffset + c * RR <= M)
+                        System.out.printf("%10d", p[rowoffset + c * RR]);
                 System.out.println();
             }
             System.out.println("\f");
-            PAGENUMBER++;
-            PAGEOFFSET += RR*CC;
+            pageNumber++;
+            pageOffset += RR*CC;
 
         }
 	}
