@@ -4,13 +4,14 @@ package com.cleancode.knuth;
 
 public class PrimePrinter {
     static final int PRIME_NUMBERS_PER_PAGE = 1000;
+    static final int TOTAL_PRIME_NUMBERS = 1000;
     static final int RR = 50;
     static final int CC = 4;
     static final int ORDMAX = 30;
 
     public static void main(String[] args) {
 
-        int P[] = new int[PRIME_NUMBERS_PER_PAGE +1];
+        int P[] = new int[TOTAL_PRIME_NUMBERS +1];
         P[1] = 2;
 
         int J = 1;
@@ -22,7 +23,7 @@ public class PrimePrinter {
         int MULT[] = new int[ORDMAX+1];
 
 
-        while (K < PRIME_NUMBERS_PER_PAGE) {
+        while (K < TOTAL_PRIME_NUMBERS) {
             do {
                 J += 2;
                 if( J == SQUARE) {
