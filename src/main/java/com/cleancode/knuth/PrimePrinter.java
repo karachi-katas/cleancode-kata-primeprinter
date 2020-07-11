@@ -8,9 +8,6 @@ public class PrimePrinter {
         final int COLUMNS_PER_PAGE = 4;
         final int ORDMAX = 30;
         int primeNumbers [] = new int[FIRST_PRIME_NUMBERS_TO_PRINT+1];
-        int pageNumber;
-        int pageOffset;
-        int rowoffset;
         int c;
         int oddNumber;
         int nthPrimeNumber;
@@ -48,26 +45,29 @@ public class PrimePrinter {
             nthPrimeNumber++;
             primeNumbers[nthPrimeNumber]=oddNumber;
         }
-        pageNumber = 1;
-        pageOffset = 1;
-        while (pageOffset <= FIRST_PRIME_NUMBERS_TO_PRINT) {
-            System.out.print("The First ");
-            System.out.print(Integer.toString(FIRST_PRIME_NUMBERS_TO_PRINT));
-            System.out.print(" Prime Numbers === Page ");
-            System.out.print(Integer.toString(pageNumber));
-            System.out.println("\n");
-            for (rowoffset= pageOffset; rowoffset <= pageOffset +ROWS_PER_PAGE-1; rowoffset++) {
+        for (int pageNumber = 1, pageOffset = 1;
+             pageOffset <= FIRST_PRIME_NUMBERS_TO_PRINT;
+             pageNumber++, pageOffset += ROWS_PER_PAGE*COLUMNS_PER_PAGE){
+            printHeaderOfAPage(FIRST_PRIME_NUMBERS_TO_PRINT, pageNumber);
+            for (int rowoffset= pageOffset; rowoffset <= pageOffset +ROWS_PER_PAGE-1; rowoffset++) {
                 for (c = 0; c <= COLUMNS_PER_PAGE - 1; c++)
                     if (rowoffset + c * ROWS_PER_PAGE <= FIRST_PRIME_NUMBERS_TO_PRINT)
                         System.out.printf("%10d", primeNumbers[rowoffset + c * ROWS_PER_PAGE]);
                 System.out.println();
             }
             System.out.println("\f");
-            pageNumber++;
-            pageOffset += ROWS_PER_PAGE*COLUMNS_PER_PAGE;
-
         }
 	}
+
+    private static void printHeaderOfAPage(int FIRST_PRIME_NUMBERS_TO_PRINT, int pageNumber) {
+        System.out.print("The First ");
+        System.out.print(FIRST_PRIME_NUMBERS_TO_PRINT);
+        System.out.print(" Prime Numbers === Page ");
+        System.out.print(pageNumber);
+        System.out.println("\n");
+    }
+
+
 
     private static int getNextOddNumber(int oddNumberToBeChecked) {
         return  oddNumberToBeChecked + 2;
