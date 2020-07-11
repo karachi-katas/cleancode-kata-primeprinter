@@ -11,19 +11,16 @@ public class PrimePrinter {
     public static void main(String[] args) {
 
         int P[] = new int[PRIME_NUMBERS_PER_PAGE +1];
-        int J;
-        int K;
+        P[1] = 2;
+
+        int J = 1;
+        int K = 1;
         boolean JPRIME;
-        int ORD;
-        int SQUARE;
+        int ORD = 2;
+        int SQUARE = 9;
         int N=0;
         int MULT[] = new int[ORDMAX+1];
 
-        J=1;
-        K=1;
-        P[1] = 2;
-        ORD = 2;
-        SQUARE = 9;
 
         while (K < PRIME_NUMBERS_PER_PAGE) {
             do {
