@@ -11,7 +11,6 @@ public class PrimePrinter {
             add(0);
         }
     };
-    int lastPerfectOddNumberSquareIndex = 2;
 
     public static void main(String[] args) {
 
@@ -25,11 +24,11 @@ public class PrimePrinter {
 
         final int maximumOddPerfectSquare = 30;
         int multiplesOfOddNumbers[] = new int[maximumOddPerfectSquare + 1];
-//        primes.add(0);
         primes.add(2);
 
         int currentNumberToCheck = 1;
         int currentSquare = 9;
+        int lastPerfectOddNumberSquareIndex = 2;
 
         while (primes.size() <= this.totalNumberOfPrimesToBePrinted) {
             boolean isCurrentNumberPrime;
@@ -38,7 +37,7 @@ public class PrimePrinter {
                 currentNumberToCheck += 2;
                 if (currentNumberToCheck == currentSquare) {
                     lastPerfectOddNumberSquareIndex++;
-                    currentSquare = getNextOddNumberSquare();
+                    currentSquare = getNextOddNumberSquare(lastPerfectOddNumberSquareIndex);
                     multiplesOfOddNumbers[lastPerfectOddNumberSquareIndex - 1] = currentNumberToCheck;
                 }
                 int currentIndex = 2;
@@ -55,7 +54,7 @@ public class PrimePrinter {
         }
     }
 
-    private int getNextOddNumberSquare() {
+    private int getNextOddNumberSquare(int lastPerfectOddNumberSquareIndex) {
         return primes.get(lastPerfectOddNumberSquareIndex) * primes.get(lastPerfectOddNumberSquareIndex);
     }
 
