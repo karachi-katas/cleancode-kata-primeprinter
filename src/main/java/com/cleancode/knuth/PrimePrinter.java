@@ -8,15 +8,16 @@ public class PrimePrinter {
     static final int OUTPUT_COLUMNS = 4;
     static final int ORDMAX = 30;
 
+    static int squares[] = new int[ORDMAX+1];
+    static int numberOfSquares = 2;
+
     public static void main(String[] args) {
 
         int primeNumbers[] = new int[TOTAL_PRIME_NUMBERS +1];
         primeNumbers[1] = 2;
 
         int candidatePrimeNumber = 1;
-        int SQUARE = 9;
-        int numberOfSquares = 2;
-        int squares[] = new int[ORDMAX+1];
+        int square = 9;
 
 
         int counter = 1;
@@ -24,19 +25,15 @@ public class PrimePrinter {
             boolean isCandidateAPrime;
             do {
                 candidatePrimeNumber += 2;
-                if( candidatePrimeNumber == SQUARE) {
-                    numberOfSquares++;
-                    SQUARE=primeNumbers[numberOfSquares]*primeNumbers[numberOfSquares];
-                    squares[numberOfSquares-1]=candidatePrimeNumber;
+                if(candidatePrimeNumber == square) {
+                    square = getNextSquare(primeNumbers, candidatePrimeNumber);
                 }
 
                 isCandidateAPrime=true;
                 int squareCounter = 2;
                 while (squareCounter < numberOfSquares && isCandidateAPrime) {
-                    while (squares[squareCounter]<candidatePrimeNumber)
-                        squares[squareCounter] += primeNumbers[squareCounter] + primeNumbers[squareCounter];
-                    if (squares[squareCounter] == candidatePrimeNumber)
-                        isCandidateAPrime=false;
+                    isCandidateAPrime = primeChecker(primeNumbers, candidatePrimeNumber,
+                            isCandidateAPrime, squareCounter);
                     squareCounter++;
                 }
             } while (!isCandidateAPrime);
@@ -44,6 +41,23 @@ public class PrimePrinter {
             primeNumbers[counter]=candidatePrimeNumber;
         }
         print(primeNumbers);
+    }
+
+    private static int getNextSquare(int[] primeNumbers, int candidatePrimeNumber) {
+        int square;
+        numberOfSquares++;
+        square=primeNumbers[numberOfSquares]*primeNumbers[numberOfSquares];
+        squares[numberOfSquares-1]=candidatePrimeNumber;
+        return square;
+    }
+
+    private static boolean primeChecker(int[] primeNumbers, int candidatePrimeNumber,
+            boolean isCandidateAPrime, int squareCounter) {
+        while (squares[squareCounter]<candidatePrimeNumber)
+            squares[squareCounter] += primeNumbers[squareCounter] + primeNumbers[squareCounter];
+        if (squares[squareCounter] == candidatePrimeNumber)
+            isCandidateAPrime=false;
+        return isCandidateAPrime;
     }
 
     private static void print(int[] primeNumbers) {
