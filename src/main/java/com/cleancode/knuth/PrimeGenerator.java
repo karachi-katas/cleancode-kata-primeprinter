@@ -2,7 +2,7 @@ package com.cleancode.knuth;
 
 public class PrimeGenerator {
 
-    public static int[] foo (final int FIRST_PRIME_NUMBERS_TO_PRINT, final int ORDMAX){
+    public static int[] generate(final int FIRST_PRIME_NUMBERS_TO_PRINT, final int ORDMAX){
 
         int primeNumbers [] = new int[FIRST_PRIME_NUMBERS_TO_PRINT+1];
         int oddNumber;

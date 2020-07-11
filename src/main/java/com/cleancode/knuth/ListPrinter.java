@@ -12,14 +12,14 @@ public class ListPrinter {
         this.COLUMNS_PER_PAGE = COLUMNS_PER_PAGE;
     }
 
-    public void printify(int maxNumbers, int rowsPerPage, int columnsPerPage, int[] numbers, String numbersDescription) {
-        for (int pageNumber = 1, index = 1; index <= maxNumbers;){
+    public void printify(int[] numbers, String numbersDescription) {
+        for (int pageNumber = 1, index = 1; index <= MAX_NUMBERS;){
             printHeaderOfAPage(pageNumber, numbersDescription);
-            for (int rowoffset= index; rowoffset <= index +rowsPerPage-1; rowoffset++)
+            for (int rowoffset= index; rowoffset <= index +ROWS_PER_PAGE-1; rowoffset++)
                 printRow(numbers, rowoffset);
             System.out.println("\f");
             pageNumber++;
-            index += rowsPerPage*columnsPerPage;
+            index += ROWS_PER_PAGE*COLUMNS_PER_PAGE;
         }
     }
 
