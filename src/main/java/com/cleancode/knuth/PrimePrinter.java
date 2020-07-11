@@ -15,7 +15,7 @@ public class PrimePrinter {
 
         int candidatePrimeNumber = 1;
         int SQUARE = 9;
-        int squareCounter = 2;
+        int numberOfSquares = 2;
         int squares[] = new int[ORDMAX+1];
 
 
@@ -25,19 +25,19 @@ public class PrimePrinter {
             do {
                 candidatePrimeNumber += 2;
                 if( candidatePrimeNumber == SQUARE) {
-                    squareCounter++;
-                    SQUARE=primeNumbers[squareCounter]*primeNumbers[squareCounter];
-                    squares[squareCounter-1]=candidatePrimeNumber;
+                    numberOfSquares++;
+                    SQUARE=primeNumbers[numberOfSquares]*primeNumbers[numberOfSquares];
+                    squares[numberOfSquares-1]=candidatePrimeNumber;
                 }
 
                 isCandidateAPrime=true;
-                int N=2;
-                while (N < squareCounter && isCandidateAPrime) {
-                    while (squares[N]<candidatePrimeNumber)
-                        squares[N] += primeNumbers[N] + primeNumbers[N];
-                    if (squares[N] == candidatePrimeNumber)
+                int squareCounter = 2;
+                while (squareCounter < numberOfSquares && isCandidateAPrime) {
+                    while (squares[squareCounter]<candidatePrimeNumber)
+                        squares[squareCounter] += primeNumbers[squareCounter] + primeNumbers[squareCounter];
+                    if (squares[squareCounter] == candidatePrimeNumber)
                         isCandidateAPrime=false;
-                    N++;
+                    squareCounter++;
                 }
             } while (!isCandidateAPrime);
             counter++;
