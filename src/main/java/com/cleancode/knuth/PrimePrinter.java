@@ -1,15 +1,15 @@
 package com.cleancode.knuth;
 
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class PrimePrinter {
     static final int TOTAL_PRIME_NUMBERS = 1000;
     static final int OUTPUT_ROWS = 50;
     static final int OUTPUT_COLUMNS = 4;
-    static final int ORDMAX = 30;
 
-    static int squares[] = new int[ORDMAX+1];
-    static int numberOfSquares = 2;
+    static List<Integer> squareList = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -31,9 +31,14 @@ public class PrimePrinter {
 
                 isCandidateAPrime=true;
                 int squareCounter = 2;
-                while (squareCounter < numberOfSquares && isCandidateAPrime) {
-                    isCandidateAPrime = primeChecker(primeNumbers, candidatePrimeNumber,
-                            isCandidateAPrime, squareCounter);
+                while (squareCounter < getNumberOfSquares() && isCandidateAPrime) {
+                    boolean isCandidateAPrime1 = isCandidateAPrime;
+                    while (getSquare(squareCounter) < candidatePrimeNumber) {
+                        squareList.set(squareCounter - 2, squareList.get(squareCounter - 2) + primeNumbers[squareCounter] * 2);
+                    }
+                    if (getSquare(squareCounter) == candidatePrimeNumber)
+                        isCandidateAPrime1 =false;
+                    isCandidateAPrime = isCandidateAPrime1;
                     squareCounter++;
                 }
             } while (!isCandidateAPrime);
@@ -43,21 +48,18 @@ public class PrimePrinter {
         print(primeNumbers);
     }
 
-    private static int getNextSquare(int[] primeNumbers, int candidatePrimeNumber) {
-        int square;
-        numberOfSquares++;
-        square=primeNumbers[numberOfSquares]*primeNumbers[numberOfSquares];
-        squares[numberOfSquares-1]=candidatePrimeNumber;
-        return square;
+    private static int getSquare(int squareCounter) {
+        return squareList.get(squareCounter - 2);
     }
 
-    private static boolean primeChecker(int[] primeNumbers, int candidatePrimeNumber,
-            boolean isCandidateAPrime, int squareCounter) {
-        while (squares[squareCounter]<candidatePrimeNumber)
-            squares[squareCounter] += primeNumbers[squareCounter] + primeNumbers[squareCounter];
-        if (squares[squareCounter] == candidatePrimeNumber)
-            isCandidateAPrime=false;
-        return isCandidateAPrime;
+    private static int getNextSquare(int[] primeNumbers, int candidatePrimeNumber) {
+        squareList.add(candidatePrimeNumber);
+
+        return primeNumbers[getNumberOfSquares()]*primeNumbers[getNumberOfSquares()];
+    }
+
+    private static int getNumberOfSquares() {
+        return squareList.size() + 2;
     }
 
     private static void print(int[] primeNumbers) {
