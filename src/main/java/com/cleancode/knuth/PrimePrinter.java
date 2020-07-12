@@ -25,15 +25,13 @@ public class PrimePrinter {
         int square = 9;
 
         while (primes.size() - 1 < TOTAL_PRIME_NUMBERS) {
-            boolean isCandidateAPrime;
             do {
                 candidatePrimeNumber += 2;
                 if(candidatePrimeNumber == square) {
                     square = getNextSquare(primes, candidatePrimeNumber);
                 }
 
-                isCandidateAPrime = checkIfPrime(primes, candidatePrimeNumber);
-            } while (!isCandidateAPrime);
+            } while (!checkIfPrime(primes, candidatePrimeNumber));
             addPrimeNumber(primes, candidatePrimeNumber);
         }
         return primes;
