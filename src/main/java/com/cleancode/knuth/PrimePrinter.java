@@ -32,21 +32,25 @@ public class PrimePrinter {
                     square = getNextSquare(primes, candidatePrimeNumber);
                 }
 
-                isCandidateAPrime=true;
-                int squareCounter = 2;
-                while (squareCounter < getNumberOfSquares() && isCandidateAPrime) {
-                    while (getSquare(squareCounter) < candidatePrimeNumber) {
-                        squares.set(squareCounter - 2, squares.get(squareCounter - 2) + getPrimeNumber(primes,
-                                squareCounter) * 2);
-                    }
-                    if (getSquare(squareCounter) == candidatePrimeNumber)
-                        isCandidateAPrime =false;
-                    squareCounter++;
-                }
+                isCandidateAPrime = checkIfPrime(primes, candidatePrimeNumber);
             } while (!isCandidateAPrime);
             addPrimeNumber(primes, candidatePrimeNumber);
         }
         return primes;
+    }
+
+    private static boolean checkIfPrime(List<Integer> primes, int candidatePrimeNumber) {
+        int squareCounter = 2;
+        while (squareCounter < getNumberOfSquares()) {
+            while (getSquare(squareCounter) < candidatePrimeNumber) {
+                squares.set(squareCounter - 2, squares.get(squareCounter - 2) + getPrimeNumber(primes,
+                        squareCounter) * 2);
+            }
+            if (getSquare(squareCounter) == candidatePrimeNumber)
+                return false;
+            squareCounter++;
+        }
+        return true;
     }
 
     private static int getSquare(int squareCounter) {
