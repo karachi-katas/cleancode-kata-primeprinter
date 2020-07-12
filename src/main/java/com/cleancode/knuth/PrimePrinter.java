@@ -9,24 +9,22 @@ public class PrimePrinter {
     static final int OUTPUT_ROWS = 50;
     static final int OUTPUT_COLUMNS = 4;
 
-    static List<Integer> squareList = new ArrayList<>();
+    static List<Integer> squares = new ArrayList<>();
+    static List<Integer> primes = new ArrayList<>();
 
     public static void main(String[] args) {
 
-        int primeNumbers[] = new int[TOTAL_PRIME_NUMBERS +1];
-        primeNumbers[1] = 2;
+        addPrimeNumber(2);
 
         int candidatePrimeNumber = 1;
         int square = 9;
 
-
-        int counter = 1;
-        while (counter < TOTAL_PRIME_NUMBERS) {
+        while (primes.size() - 1 < TOTAL_PRIME_NUMBERS) {
             boolean isCandidateAPrime;
             do {
                 candidatePrimeNumber += 2;
                 if(candidatePrimeNumber == square) {
-                    square = getNextSquare(primeNumbers, candidatePrimeNumber);
+                    square = getNextSquare(candidatePrimeNumber);
                 }
 
                 isCandidateAPrime=true;
@@ -34,7 +32,7 @@ public class PrimePrinter {
                 while (squareCounter < getNumberOfSquares() && isCandidateAPrime) {
                     boolean isCandidateAPrime1 = isCandidateAPrime;
                     while (getSquare(squareCounter) < candidatePrimeNumber) {
-                        squareList.set(squareCounter - 2, squareList.get(squareCounter - 2) + primeNumbers[squareCounter] * 2);
+                        squares.set(squareCounter - 2, squares.get(squareCounter - 2) + getPrimeNumber(squareCounter) * 2);
                     }
                     if (getSquare(squareCounter) == candidatePrimeNumber)
                         isCandidateAPrime1 =false;
@@ -42,32 +40,39 @@ public class PrimePrinter {
                     squareCounter++;
                 }
             } while (!isCandidateAPrime);
-            counter++;
-            primeNumbers[counter]=candidatePrimeNumber;
+            addPrimeNumber(candidatePrimeNumber);
         }
-        print(primeNumbers);
+        print(primes);
     }
 
     private static int getSquare(int squareCounter) {
-        return squareList.get(squareCounter - 2);
+        return squares.get(squareCounter - 2);
     }
 
-    private static int getNextSquare(int[] primeNumbers, int candidatePrimeNumber) {
-        squareList.add(candidatePrimeNumber);
+    private static int getNextSquare(int candidatePrimeNumber) {
+        squares.add(candidatePrimeNumber);
 
-        return primeNumbers[getNumberOfSquares()]*primeNumbers[getNumberOfSquares()];
+        return getPrimeNumber(getNumberOfSquares()) * getPrimeNumber(getNumberOfSquares());
+    }
+
+    private static int getPrimeNumber(int position) {
+        return primes.get(position - 1);
+    }
+
+    private static void addPrimeNumber(int prime) {
+        primes.add(prime);
     }
 
     private static int getNumberOfSquares() {
-        return squareList.size() + 2;
+        return squares.size() + 2;
     }
 
-    private static void print(int[] primeNumbers) {
+    private static void print(List<Integer> primes) {
         int pageNumber = 1;
         int pageOffset = 1;
         while (pageOffset <= TOTAL_PRIME_NUMBERS) {
             printHeader(pageNumber);
-            printRows(primeNumbers, pageOffset);
+            printRows(primes, pageOffset);
             printLineBreak();
             pageNumber++;
             pageOffset += OUTPUT_ROWS * OUTPUT_COLUMNS;
@@ -79,9 +84,9 @@ public class PrimePrinter {
         System.out.println("\f");
     }
 
-    private static void printRows(int[] primeNumbers, int pageOffset) {
+    private static void printRows(List<Integer> primes, int pageOffset) {
         for (int row=pageOffset; row <= pageOffset+ OUTPUT_ROWS -1; row++) {
-            printRow(primeNumbers, row);
+            printRow(primes, row);
             System.out.println();
         }
     }
@@ -94,9 +99,9 @@ public class PrimePrinter {
         System.out.println("\n");
     }
 
-    private static void printRow(int[] primeNumbers, int row) {
+    private static void printRow(List<Integer> primes, int row) {
         for (int column = 0; column <= OUTPUT_COLUMNS - 1; column++)
             if (row + column * OUTPUT_ROWS <= TOTAL_PRIME_NUMBERS)
-                System.out.printf("%10d", primeNumbers[row + column * OUTPUT_ROWS]);
+                System.out.printf("%10d", primes.get(row + column * OUTPUT_ROWS - 1));
     }
 }
