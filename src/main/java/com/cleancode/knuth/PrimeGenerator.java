@@ -5,16 +5,24 @@ import java.util.List;
 
 public class PrimeGenerator {
 
-    static List<Integer> squares = new ArrayList<>();
+    List<Integer> squares = new ArrayList<>();
+    List<Integer> primes = new ArrayList<>();
 
-    static List<Integer> getPrimesNumbers() {
-        List<Integer> primes = new ArrayList<>();
+    PrimeGenerator(int numberOfPrimes) {
+        primes = getPrimesNumbers(numberOfPrimes);
+    }
+
+    public List<Integer> getPrimes() {
+        return primes;
+    }
+
+    private List<Integer> getPrimesNumbers(int numberOfPrimes) {
         addPrimeNumber(primes, 2);
 
         int candidatePrimeNumber = 1;
         int square = 9;
 
-        while (primes.size() - 1 < PrimePrinter.TOTAL_PRIME_NUMBERS) {
+        while (primes.size() - 1 < numberOfPrimes) {
             do {
                 candidatePrimeNumber += 2;
                 if(candidatePrimeNumber == square) {
@@ -27,7 +35,7 @@ public class PrimeGenerator {
         return primes;
     }
 
-    private static boolean checkIfPrime(List<Integer> primes, int candidatePrimeNumber) {
+    private boolean checkIfPrime(List<Integer> primes, int candidatePrimeNumber) {
         int squareCounter = 2;
         while (squareCounter < getNumberOfSquares()) {
             while (getSquare(squareCounter) < candidatePrimeNumber) {
@@ -41,25 +49,25 @@ public class PrimeGenerator {
         return true;
     }
 
-    private static int getSquare(int squareCounter) {
+    private int getSquare(int squareCounter) {
         return squares.get(squareCounter - 2);
     }
 
-    private static int getNextSquare(List<Integer> primes, int candidatePrimeNumber) {
+    private int getNextSquare(List<Integer> primes, int candidatePrimeNumber) {
         squares.add(candidatePrimeNumber);
 
         return getPrimeNumber(primes, getNumberOfSquares()) * getPrimeNumber(primes, getNumberOfSquares());
     }
 
-    private static int getPrimeNumber(List<Integer> primes, int position) {
+    private int getPrimeNumber(List<Integer> primes, int position) {
         return primes.get(position - 1);
     }
 
-    private static void addPrimeNumber(List<Integer> primes, int prime) {
+    private void addPrimeNumber(List<Integer> primes, int prime) {
         primes.add(prime);
     }
 
-    private static int getNumberOfSquares() {
+    private int getNumberOfSquares() {
         return squares.size() + 2;
     }
 }

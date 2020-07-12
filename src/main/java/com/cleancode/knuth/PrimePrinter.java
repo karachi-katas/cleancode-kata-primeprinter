@@ -10,7 +10,7 @@ public class PrimePrinter {
 
     public static void main(String[] args) {
 
-        List<Integer> primes = PrimeGenerator.getPrimesNumbers();
+        List<Integer> primes = new PrimeGenerator(TOTAL_PRIME_NUMBERS).getPrimes();
         print(primes);
     }
 
