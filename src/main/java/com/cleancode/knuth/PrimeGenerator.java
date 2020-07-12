@@ -17,12 +17,12 @@ public class PrimeGenerator {
     }
 
     private List<Integer> getPrimesNumbers(int numberOfPrimes) {
-        addPrimeNumber(primes, 2);
+        primes.add(2);
 
         int candidatePrimeNumber = 1;
         int square = 9;
 
-        while (primes.size() - 1 < numberOfPrimes) {
+        while (primes.size() < numberOfPrimes) {
             do {
                 candidatePrimeNumber += 2;
                 if(candidatePrimeNumber == square) {
@@ -30,7 +30,7 @@ public class PrimeGenerator {
                 }
 
             } while (!checkIfPrime(primes, candidatePrimeNumber));
-            addPrimeNumber(primes, candidatePrimeNumber);
+            primes.add(candidatePrimeNumber);
         }
         return primes;
     }
@@ -61,10 +61,6 @@ public class PrimeGenerator {
 
     private int getPrimeNumber(List<Integer> primes, int position) {
         return primes.get(position - 1);
-    }
-
-    private void addPrimeNumber(List<Integer> primes, int prime) {
-        primes.add(prime);
     }
 
     private int getNumberOfSquares() {
